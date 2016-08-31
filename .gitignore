@@ -1,1 +1,7 @@
-.idea/
+logs/*
+!.gitkeep
+node_modules/
+tmp
+.idea
+.DS_Store
+minblog2/static/lib/
