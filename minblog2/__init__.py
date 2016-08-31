@@ -1,20 +1,20 @@
-from flask import Flask, request, make_response, render_template
+from flask import Flask
 from flask_restful import Resource, Api, reqparse
 import os
 
+# Core set-up
 DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = os.urandom(32)
 
-api = Api(app)
-parser = reqparse.RequestParser()
-parser.add_argument('data')
+# Etc. set-up
+# api = Api(app)
+# parser = reqparse.RequestParser()
+# parser.add_argument('data')
 
-
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+# import external project-specific modules
+import minblog2.blogEntries
 
 
 # class HelloWorld(Resource):
