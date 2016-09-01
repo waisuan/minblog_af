@@ -2,5 +2,7 @@
 
 angular.module('minblog', [
   'ngAnimate',
-  'ngRoute'
+  'ngRoute',
+  'services',
+  'blogEntryList'
 ]);

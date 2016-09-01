@@ -1,20 +1,14 @@
 from flask import Flask
-from flask_restful import Resource, Api, reqparse
-import os
 
-# Core set-up
-DEBUG = True
 app = Flask(__name__)
-app.config.from_object(__name__)
-app.secret_key = os.urandom(32)
-
-# Etc. set-up
-# api = Api(app)
-# parser = reqparse.RequestParser()
-# parser.add_argument('data')
+#app.config.from_object(__name__)
+app.config.from_object('minblog2.settings')
 
 # import external project-specific modules
-import minblog2.blogEntries
+#import minblog2.blogEntries
+import minblog2.core
+import minblog2.models
+import minblog2.controllers
 
 
 # class HelloWorld(Resource):
