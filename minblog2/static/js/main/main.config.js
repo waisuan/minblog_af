@@ -16,6 +16,9 @@ function config($locationProvider, $routeProvider) {
     when('/', {
         template: '<blog-entry-list></blog-entry-list>'
     }).
+    when('/create', {
+        template: '<blog-entry-create></blog-entry-create>'
+    }).
     otherwise('/');
 }
 ]);

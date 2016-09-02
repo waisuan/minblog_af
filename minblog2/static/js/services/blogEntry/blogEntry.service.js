@@ -6,8 +6,7 @@ factory('BlogEntry', ['$resource',
 function($resource) {
     return $resource('/api/blogentry', {}, {
         queryForAll: {
-            method: 'GET',
-            params: {}
+            method: 'GET'
         }
     });
 }

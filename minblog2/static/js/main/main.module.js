@@ -4,5 +4,7 @@ angular.module('minblog', [
   'ngAnimate',
   'ngRoute',
   'services',
-  'blogEntryList'
+  'blogEntryList',
+  'blogEntryDetail',
+  'blogEntryCreate'
 ]);

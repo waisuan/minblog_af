@@ -8,25 +8,53 @@
   href="https://cdn4.iconfinder.com/data/icons/miu/24/circle-more-detail-outline-stroke-128.png"/> -->
   <link rel="stylesheet" href="static/lib/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="static/css/main/main.css" />
-  <link rel="stylesheet" href="static/css/blogEntry-list/blogEntry-list.css" />
+  <link rel="stylesheet" href="static/css/blogEntry-list/blogEntry-list.template.css" />
 
   <script src="static/lib/jquery/dist/jquery.js"></script>
+
+  <!-- <script src='//cdn.tinymce.com/4/tinymce.min.js'></script> -->
+  <script src="static/lib/tinymce/tinymce.min.js"></script>
+
   <script src="static/lib/angular/angular.js"></script>
   <script src="static/lib/angular-animate/angular-animate.js"></script>
   <script src="static/lib/angular-resource/angular-resource.js"></script>
   <script src="static/lib/angular-route/angular-route.js"></script>
+
   <script src="static/js/main/main.module.js"></script>
   <script src="static/js/main/main.config.js"></script>
+  <script src="static/js/main/main.jquery.js"></script>
+
   <script src="static/js/services/services.module.js"></script>
   <script src="static/js/services/blogEntry/blogEntry.module.js"></script>
   <script src="static/js/services/blogEntry/blogEntry.service.js"></script>
+
   <script src="static/js/blogEntry-list/blogEntry-list.module.js"></script>
   <script src="static/js/blogEntry-list/blogEntry-list.component.js"></script>
+
+  <script src="static/js/blogEntry-detail/blogEntry-detail.module.js"></script>
+  <script src="static/js/blogEntry-detail/blogEntry-detail.component.js"></script>
+
+  <script src="static/js/blogEntry-create/blogEntry-create.module.js"></script>
+  <script src="static/js/blogEntry-create/blogEntry-create.component.js"></script>
 </head>
 <body>
 
-  <div class="container ng-view">
+  <div class="container">
 
+      <ul class="nav nav-tabs">
+          <li role="presentation">
+              <a id="main-home" class="main-nav" href="#!/">
+                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+              </a>
+          </li>
+          <li role="presentation">
+              <a id="main-create" class="main-nav" href="#!/create">
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
+              </a>
+          </li>
+      </ul>
+
+      <div class="ng-view"></div>
     <!-- {% block body %}
     {% endblock %} -->
 

@@ -11,13 +11,14 @@ def route_to_main():
     return make_response(open('minblog2/templates/main/main.html').read())
 
 
-class BlogEntry(Resource):
+class BlogEntries(Resource):
     def get(self):
-        return {'key': 'dummy',
-                'dummies': ['d1', 'd2', 'd3']}
+        return { 'blogEntries': databaseManager.get_all_entries() }
+        # return {'key': 'dummy',
+        #         'dummies': ['d1', 'd2', 'd3']}
 
 
-api.add_resource(BlogEntry, '/api/blogentry')
+api.add_resource(BlogEntries, '/api/blogentry')
 
 # @app.errorhandler(404)
 # def page_not_found(e):
