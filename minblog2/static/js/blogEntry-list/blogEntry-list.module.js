@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('blogEntryList', ['services.blogEntry']);
+angular.module('blogEntryList', ['services.blogEntry', 'ngSanitize']);

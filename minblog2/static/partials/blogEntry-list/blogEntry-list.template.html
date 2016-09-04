@@ -1,4 +1,6 @@
-<div ng-repeat="blogEntry in $ctrl.blogEntries">
-    <h2>{{ blogEntry.title }}</h2>
-    <p>{{ blogEntry.text }}</p>
+<div class="blogEntryList">
+  <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries">
+    <h2 ng-bind-html="blogEntry.title"></h2>
+    <p ng-bind-html="blogEntry.text"></p>
+  </div>
 </div>

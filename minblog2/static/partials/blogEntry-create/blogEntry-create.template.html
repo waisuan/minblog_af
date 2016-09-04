@@ -1,4 +1,9 @@
 <script src="static/js/blogEntry-create/blogEntry-create.jquery.js"></script>
 
-<h1>{{$ctrl.comp}}</h1>
-<textarea id="blogEntryCreate-newEntryText"></textarea>
+<div class="blogEntryCreate ">
+  <h1 id="blogEntryCreate-header">{{$ctrl.comp}}</h1>
+  <form ng-submit="$ctrl.createNewEntryFunc()">
+    <textarea ui-tinymce="$ctrl.tinymceOptions" id="blogEntryCreate-newEntryText" ng-model="$ctrl.createNewEntryText"></textarea>
+    <button type="submit" id="blogEntryCreate-submitBtn" class="btn btn-primary btn-lg btn-block disabled">Create</button>
+  </form>
+</div>

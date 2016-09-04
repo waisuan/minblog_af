@@ -1,0 +1,19 @@
+.blogEntryCreate{}
+
+.blogEntryCreate #blogEntryCreate-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*.blogEntryCreate #blogEntryCreate-newEntryText {
+  width: 100%;
+  height: 450px;
+  max-height: 450px;
+}*/
+
+.blogEntryCreate #blogEntryCreate-submitBtn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /*float: right;
+  overflow: hidden;*/
+}

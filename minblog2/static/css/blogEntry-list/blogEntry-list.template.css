@@ -1,0 +1,12 @@
+.blogEntryList {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.blogEntryList .blogEntry-entry {
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border:1px solid black;
+  border-radius: 25px;
+}

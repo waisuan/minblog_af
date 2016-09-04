@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   <title>minblog</title>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <!-- {{ url_for('static', filename='img/favicon.ico') }} -->
+  <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
   <!-- <link rel="shortcut icon" type="image/x-icon"
   href="https://cdn4.iconfinder.com/data/icons/miu/24/circle-more-detail-outline-stroke-128.png"/> -->
   <link rel="stylesheet" href="static/lib/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="static/css/main/main.css" />
   <link rel="stylesheet" href="static/css/blogEntry-list/blogEntry-list.template.css" />
+  <link rel="stylesheet" href="static/css/blogEntry-create/blogEntry-create.template.css" />
 
   <script src="static/lib/jquery/dist/jquery.js"></script>
-
-  <!-- <script src='//cdn.tinymce.com/4/tinymce.min.js'></script> -->
-  <script src="static/lib/tinymce/tinymce.min.js"></script>
 
   <script src="static/lib/angular/angular.js"></script>
   <script src="static/lib/angular-animate/angular-animate.js"></script>
   <script src="static/lib/angular-resource/angular-resource.js"></script>
   <script src="static/lib/angular-route/angular-route.js"></script>
+  <script src="static/lib/angular-sanitize/angular-sanitize.min.js"></script>
+
+  <!-- <script src='//cdn.tinymce.com/4/tinymce.min.js'></script> -->
+  <!-- <script src="static/lib/tinymce/tinymce.min.js"></script> -->
+  <script src="static/lib/tinymce-dist/tinymce.min.js"></script>
+  <script src="static/lib/angular-ui-tinymce/src/tinymce.js"></script>
 
   <script src="static/js/main/main.module.js"></script>
   <script src="static/js/main/main.config.js"></script>

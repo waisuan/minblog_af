@@ -3,6 +3,7 @@
 angular.module('minblog', [
   'ngAnimate',
   'ngRoute',
+  'ngSanitize',
   'services',
   'blogEntryList',
   'blogEntryDetail',

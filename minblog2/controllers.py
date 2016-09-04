@@ -1,4 +1,4 @@
-from flask import render_template, make_response
+from flask import render_template, make_response, request
 from flask_restful import Resource
 
 from minblog2 import app
@@ -13,12 +13,18 @@ def route_to_main():
 
 class BlogEntries(Resource):
     def get(self):
-        return { 'blogEntries': databaseManager.get_all_entries() }
-        # return {'key': 'dummy',
-        #         'dummies': ['d1', 'd2', 'd3']}
+        all_entries = databaseManager.get_all_entries()
+        print len(all_entries)
+        return all_entries
+
+    def post(self):
+        post_payload = request.get_json()
+        if post_payload is not None:
+            print post_payload.get('data')
+        return {}, 200
 
 
-api.add_resource(BlogEntries, '/api/blogentry')
+api.add_resource(BlogEntries, '/api/blogentries')
 
 # @app.errorhandler(404)
 # def page_not_found(e):
