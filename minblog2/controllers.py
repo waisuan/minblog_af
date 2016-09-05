@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 from minblog2 import app
 from minblog2.core import api
-from minblog2.helpers import databaseManager
+from minblog2.core import dbManager
 
 
 @app.route('/')
@@ -13,15 +13,14 @@ def route_to_main():
 
 class BlogEntries(Resource):
     def get(self):
-        all_entries = databaseManager.get_all_entries()
-        print len(all_entries)
-        return all_entries
+        return dbManager.get_all_entries()
 
     def post(self):
         post_payload = request.get_json()
         if post_payload is not None:
-            print post_payload.get('data')
-        return {}, 200
+            print post_payload.get('title')
+            print post_payload.get('text')
+        return {}, 201
 
 
 api.add_resource(BlogEntries, '/api/blogentries')

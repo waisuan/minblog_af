@@ -11,6 +11,11 @@
   max-height: 450px;
 }*/
 
+.blogEntryCreate #blogEntryCreate-newEntryTitle {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .blogEntryCreate #blogEntryCreate-submitBtn {
   margin-top: 10px;
   margin-bottom: 10px;

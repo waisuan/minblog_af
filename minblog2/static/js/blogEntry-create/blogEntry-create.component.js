@@ -1,5 +1,13 @@
 'use strict';
 
+function toggleSubmitBtn (current_content) {
+  if (current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+    $("#blogEntryCreate-submitBtn").removeClass("disabled");
+  } else if (!current_content && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+    $("#blogEntryCreate-submitBtn").addClass("disabled");
+  }
+}
+
 angular.
 module('blogEntryCreate').
 component('blogEntryCreate', {
@@ -7,6 +15,7 @@ component('blogEntryCreate', {
   controller: ['BlogEntry',
   function BlogEntryCreateController(BlogEntry) {
     this.comp = 'BlogEntryCreateController';
+    this.createNewEntryTitle = "";
     this.createNewEntryText = "";
     this.createNewEntryFunc = function () {
       if (!this.createNewEntryText) {
@@ -15,13 +24,20 @@ component('blogEntryCreate', {
       console.log(this.createNewEntryText);
 
       var newBlogEntry = new BlogEntry();
-      newBlogEntry.data = this.createNewEntryText;
+      newBlogEntry.title = this.createNewEntryTitle;
+      newBlogEntry.text = this.createNewEntryText;
       newBlogEntry.$save();
+      this.createNewEntryTitle = "";
+      this.createNewEntryText = "";
       // BlogEntry.save({val: this.createNewEntryText}).$promise.then(function(data) {
       //   console.log('OK' + data);
       // }, function(error) {
       //   console.log(error);
       // });
+      toggleSubmitBtn(this.createNewEntryText);
+    }
+
+    this.keyUpHandler = function() {
     }
 
     var viewModel = this;
@@ -30,11 +46,12 @@ component('blogEntryCreate', {
       setup: function (editor) {
         editor.on('keyup', function (e) {
           var current_content = editor.getContent();
-          if (current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
-            $("#blogEntryCreate-submitBtn").removeClass("disabled");
-          } else if (!current_content && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
-            $("#blogEntryCreate-submitBtn").addClass("disabled");
-          }
+          toggleSubmitBtn(current_content);
+          // if (current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+          //   $("#blogEntryCreate-submitBtn").removeClass("disabled");
+          // } else if (!current_content && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+          //   $("#blogEntryCreate-submitBtn").addClass("disabled");
+          // }
         });
       },
       height: '450',
