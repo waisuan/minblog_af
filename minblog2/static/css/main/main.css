@@ -1,3 +1,13 @@
+body {
+  background-color: #F5F5F5; /*White Smoke*/
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background-color: #F5F5F5;
+}
+
 .container {
   padding-top: 20px;
   padding-bottom: 20px;

@@ -1,0 +1,15 @@
+.blogEntry-entry.ng-enter,
+.blogEntry-entry.ng-leave
+{
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.2s;
+}
+
+.blogEntry-entry.ng-leave.ng-leave-active,
+.blogEntry-entry.ng-enter {
+  opacity:0;
+}
+
+.blogEntry-entry.ng-enter.ng-enter-active,
+.blogEntry-entry.ng-leave {
+  opacity:1;
+}
