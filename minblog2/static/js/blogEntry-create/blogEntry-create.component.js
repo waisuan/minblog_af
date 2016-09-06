@@ -14,7 +14,6 @@ component('blogEntryCreate', {
   templateUrl: 'static/partials/blogEntry-create/blogEntry-create.template.html',
   controller: ['BlogEntry',
   function BlogEntryCreateController(BlogEntry) {
-    this.comp = 'BlogEntryCreateController';
     this.createNewEntryTitle = "";
     this.createNewEntryText = "";
     this.createNewEntryFunc = function () {
@@ -29,12 +28,12 @@ component('blogEntryCreate', {
       newBlogEntry.$save();
       this.createNewEntryTitle = "";
       this.createNewEntryText = "";
+      toggleSubmitBtn(this.createNewEntryText);
       // BlogEntry.save({val: this.createNewEntryText}).$promise.then(function(data) {
       //   console.log('OK' + data);
       // }, function(error) {
       //   console.log(error);
       // });
-      toggleSubmitBtn(this.createNewEntryText);
     }
 
     this.keyUpHandler = function() {
@@ -47,11 +46,6 @@ component('blogEntryCreate', {
         editor.on('keyup', function (e) {
           var current_content = editor.getContent();
           toggleSubmitBtn(current_content);
-          // if (current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
-          //   $("#blogEntryCreate-submitBtn").removeClass("disabled");
-          // } else if (!current_content && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
-          //   $("#blogEntryCreate-submitBtn").addClass("disabled");
-          // }
         });
       },
       height: '450',

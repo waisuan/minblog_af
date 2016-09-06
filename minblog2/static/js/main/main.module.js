@@ -5,6 +5,7 @@ angular.module('minblog', [
   'ngRoute',
   'ngSanitize',
   'services',
+  'utils.minblog',
   'blogEntryList',
   'blogEntryDetail',
   'blogEntryCreate'
