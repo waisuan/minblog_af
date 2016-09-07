@@ -1,9 +1,9 @@
 'use strict';
 
-function toggleSubmitBtn (current_content) {
-  if (current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+function toggleSubmitBtn (current_title, current_content) {
+  if (current_title && current_content && $("#blogEntryCreate-submitBtn").hasClass("disabled")) {
     $("#blogEntryCreate-submitBtn").removeClass("disabled");
-  } else if (!current_content && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+  } else if ((!current_title || !current_content) && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
     $("#blogEntryCreate-submitBtn").addClass("disabled");
   }
 }
@@ -14,29 +14,24 @@ component('blogEntryCreate', {
   templateUrl: 'static/partials/blogEntry-create/blogEntry-create.template.html',
   controller: ['BlogEntry',
   function BlogEntryCreateController(BlogEntry) {
-    this.createNewEntryTitle = "";
-    this.createNewEntryText = "";
-    this.createNewEntryFunc = function () {
-      if (!this.createNewEntryText) {
+    this.newBlogEntryTitle = "";
+    this.newBlogEntryText = "";
+    this.createNewBlogEntryFunc = function () {
+      if (!this.newBlogEntryText) {
         return;
       }
-      console.log(this.createNewEntryText);
 
       var newBlogEntry = new BlogEntry();
-      newBlogEntry.title = this.createNewEntryTitle;
-      newBlogEntry.text = this.createNewEntryText;
+      newBlogEntry.title = this.newBlogEntryTitle;
+      newBlogEntry.text = this.newBlogEntryText;
       newBlogEntry.$save();
-      this.createNewEntryTitle = "";
-      this.createNewEntryText = "";
-      toggleSubmitBtn(this.createNewEntryText);
-      // BlogEntry.save({val: this.createNewEntryText}).$promise.then(function(data) {
-      //   console.log('OK' + data);
-      // }, function(error) {
-      //   console.log(error);
-      // });
+      this.newBlogEntryTitle = "";
+      this.newBlogEntryText = "";
+      toggleSubmitBtn(this.newBlogEntryTitle, this.newBlogEntryText);
     }
 
     this.keyUpHandler = function() {
+      toggleSubmitBtn(this.newBlogEntryTitle, this.newBlogEntryText);
     }
 
     var viewModel = this;
@@ -45,7 +40,7 @@ component('blogEntryCreate', {
       setup: function (editor) {
         editor.on('keyup', function (e) {
           var current_content = editor.getContent();
-          toggleSubmitBtn(current_content);
+          toggleSubmitBtn(viewModel.newBlogEntryTitle, current_content);
         });
       },
       height: '450',
@@ -95,7 +90,8 @@ component('blogEntryCreate', {
         tools: {title: 'Tools', items: 'code'}
       },
       /*menubar: 'edit insert view format table tools',*/
-      toolbar: 'forecolor fontselect fontsizeselect | bullist numlist outdent indent '
+      /*fontselect fontsizeselect */
+      toolbar: 'forecolor | bullist numlist outdent indent '
     };
   }
 ]

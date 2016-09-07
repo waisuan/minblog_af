@@ -18,8 +18,11 @@ class BlogEntries(Resource):
     def post(self):
         post_payload = request.get_json()
         if post_payload is not None:
-            print post_payload.get('title')
-            print post_payload.get('text')
+            newEntryTitle = post_payload.get('title')
+            newEntryText = post_payload.get('text')
+            if newEntryTitle is None or newEntryText is None:
+                return {}, 400 # Something bad just happened...
+            return {'_id' : dbManager.create_new_entry(newEntryTitle, newEntryText)}, 201
         return {}, 201
 
 

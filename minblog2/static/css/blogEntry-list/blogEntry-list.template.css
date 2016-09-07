@@ -11,3 +11,7 @@
   border-radius: 10px;
   background-color: #FFFFFF; /*White*/
 }
+
+.blogEntry-entry .blogEntry-header {
+  letter-spacing: 1px;
+}

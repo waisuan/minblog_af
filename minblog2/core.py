@@ -13,3 +13,6 @@ except pymongo.errors.ConnectionFailure, e:
     print "Could not connect to server: %s" % e
     # Don't continue if we can't connect to DB.
     sys.exit
+except pymongo.errors.PyMongoError, e:
+    print "%s" % e
+    sys.exit

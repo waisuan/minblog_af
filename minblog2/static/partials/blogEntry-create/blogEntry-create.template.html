@@ -1,14 +1,14 @@
 <script src="static/js/blogEntry-create/blogEntry-create.jquery.js"></script>
 
 <div class="blogEntryCreate ">
-    <form ng-submit="$ctrl.createNewEntryFunc()">
+    <form ng-submit="$ctrl.createNewBlogEntryFunc()">
         <input  type="text"
                 class="form-control"
                 placeholder="What's on your mind?"
                 id="blogEntryCreate-newEntryTitle"
-                ng-model="$ctrl.createNewEntryTitle"
+                ng-model="$ctrl.newBlogEntryTitle"
                 autofocus >
-        <textarea ui-tinymce="$ctrl.tinymceOptions" id="blogEntryCreate-newEntryText" ng-model="$ctrl.createNewEntryText"></textarea>
+        <textarea ui-tinymce="$ctrl.tinymceOptions" id="blogEntryCreate-newEntryText" ng-model="$ctrl.newBlogEntryText"></textarea>
         <button type="submit" id="blogEntryCreate-submitBtn" class="btn btn-primary btn-lg btn-block disabled">Create</button>
     </form>
 </div>
