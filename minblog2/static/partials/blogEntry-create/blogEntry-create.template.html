@@ -7,8 +7,13 @@
                 placeholder="What's on your mind?"
                 id="blogEntryCreate-newEntryTitle"
                 ng-model="$ctrl.newBlogEntryTitle"
+                ng-keyup="$ctrl.keyUpHandler()"
                 autofocus >
-        <textarea ui-tinymce="$ctrl.tinymceOptions" id="blogEntryCreate-newEntryText" ng-model="$ctrl.newBlogEntryText"></textarea>
-        <button type="submit" id="blogEntryCreate-submitBtn" class="btn btn-primary btn-lg btn-block disabled">Create</button>
+        <textarea ui-tinymce="$ctrl.tinymceOptions"
+                  id="blogEntryCreate-newEntryText"
+                  ng-model="$ctrl.newBlogEntryText"></textarea>
+        <button type="submit"
+                id="blogEntryCreate-submitBtn"
+                class="btn btn-primary btn-lg btn-block disabled">Create</button>
     </form>
 </div>

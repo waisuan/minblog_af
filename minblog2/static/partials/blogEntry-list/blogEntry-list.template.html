@@ -1,6 +1,8 @@
 <div class="blogEntryList">
   <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries">
-    <h2 class="blogEntry-header" ng-bind-html="blogEntry.entry_title"></h2>
+    <a class="blogEntry-header-anchor" href="#">
+      <h2 class="blogEntry-header">{{blogEntry.entry_title}}</h2>
+    </a>
     <p ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.entry_text)"></p>
   </div>
 </div>
