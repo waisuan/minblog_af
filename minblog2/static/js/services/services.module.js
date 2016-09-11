@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('services', ['services.blogEntry']);
+angular.module('services', ['services.blogEntry', 'services.blogEntryDetail']);

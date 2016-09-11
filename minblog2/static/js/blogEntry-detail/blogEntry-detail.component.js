@@ -4,9 +4,10 @@ angular.
 module('blogEntryDetail').
 component('blogEntryDetail', {
     templateUrl: 'static/partials/blogEntry-detail/blogEntry-detail.template.html',
-    controller: ['BlogEntry',
-    function BlogEntryDetailController(BlogEntry) {
-        this.comp = 'BlogEntryDetailController';
+    controller: ['$routeParams', 'BlogEntryDetail', '$sce',
+    function BlogEntryDetailController($routeParams, BlogEntryDetail, $sce) {
+      this.id = $routeParams.id;
+      BlogEntryDetail.get({'entryId': this.id});
     }
 ]
 });

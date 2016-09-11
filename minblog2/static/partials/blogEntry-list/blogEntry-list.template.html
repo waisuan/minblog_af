@@ -1,6 +1,7 @@
 <div class="blogEntryList">
-  <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries">
-    <a class="blogEntry-header-anchor" href="#">
+  <input type="text" class="form-control" placeholder="Search something..." ng-model="$ctrl.search" />
+  <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries | filter:$ctrl.search">
+    <a class="blogEntry-header-anchor" href="/detail/{{blogEntry.id}}">
       <h2 class="blogEntry-header">{{blogEntry.entry_title}}</h2>
     </a>
     <p ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.entry_text)"></p>

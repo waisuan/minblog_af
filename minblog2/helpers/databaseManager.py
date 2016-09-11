@@ -25,8 +25,25 @@ class DatabaseManager:
                                         is_modified         = entry.get('is_modified', False)
                                     ) for entry in all_entries
                             ]
-                            
+
         return entries_as_dict
+
+    def get_entry_by_id(self, entryId):
+        entry = self.entries_col.find({'_id': entryId})
+        if len(entry) == 0:
+            return ()
+        entry = dict(
+                        id                  = str(entry.get('_id', '9999')),
+                        creator             = entry.get('creator', '????'),
+                        created_on_date     = entry.get('created_on_date', '????'),
+                        created_on_time     = entry.get('created_on_time', '????'),
+                        entry_title         = entry.get('entry_title', '????'),
+                        entry_text          = entry.get('entry_text', '????'),
+                        modified_on_date    = entry.get('modified_on_date', '????'),
+                        modified_on_time    = entry.get('modified_on_time', '????'),
+                        is_modified         = entry.get('is_modified', False)
+                    )
+        return entry
 
     def create_new_entry(self, new_entry_title, new_entry_text):
         now_date = time.strftime("%d/%m/%Y")

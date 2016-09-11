@@ -7,7 +7,9 @@ from minblog2.core import dbManager
 
 
 @app.route('/')
-def route_to_main():
+@app.route('/create')
+@app.route('/detail/<path:id>')
+def route_to_main(id=None):
     return make_response(open('minblog2/templates/main/main.html').read())
 
 
@@ -26,7 +28,15 @@ class BlogEntries(Resource):
         return {}, 201
 
 
+class BlogEntryDetail(Resource):
+    def get(self, entryId):
+        print entryId
+        return {}
+        #return dbManager.get_entry_by_id(entryId)
+
+
 api.add_resource(BlogEntries, '/api/blogentries')
+api.add_resource(BlogEntryDetail, '/api/blogentrydetail/<entryId>')
 
 # @app.errorhandler(404)
 # def page_not_found(e):

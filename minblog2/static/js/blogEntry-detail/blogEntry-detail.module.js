@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('blogEntryDetail', ['services.blogEntry']);
+angular.module('blogEntryDetail', ['ngRoute', 'services.blogEntryDetail', 'ngSanitize']);
