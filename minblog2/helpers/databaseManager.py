@@ -29,9 +29,9 @@ class DatabaseManager:
         return entries_as_dict
 
     def get_entry_by_id(self, entryId):
-        entry = self.entries_col.find({'_id': entryId})
+        entry = self.entries_col.find_one({'_id': ObjectId(entryId)})
         if len(entry) == 0:
-            return ()
+            return {}
         entry = dict(
                         id                  = str(entry.get('_id', '9999')),
                         creator             = entry.get('creator', '????'),

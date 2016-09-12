@@ -15,8 +15,9 @@
 .blogEntry-entry .blogEntry-header-anchor {
   color: black;
   text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .blogEntry-entry .blogEntry-header {
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 }

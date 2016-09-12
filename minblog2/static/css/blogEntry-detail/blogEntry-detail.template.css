@@ -1,0 +1,8 @@
+.blogEntryDetail {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
+  border:1px solid #D3D3D3; /*LightGrey */
+  border-radius: 10px;
+  background-color: #FFFFFF; /*White*/
+}

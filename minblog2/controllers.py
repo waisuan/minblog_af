@@ -30,9 +30,7 @@ class BlogEntries(Resource):
 
 class BlogEntryDetail(Resource):
     def get(self, entryId):
-        print entryId
-        return {}
-        #return dbManager.get_entry_by_id(entryId)
+        return dbManager.get_entry_by_id(entryId)
 
 
 api.add_resource(BlogEntries, '/api/blogentries')
