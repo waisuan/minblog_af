@@ -4,6 +4,7 @@
     <a class="blogEntry-header-anchor" href="/detail/{{blogEntry.id}}">
       <h1 class="blogEntry-header">{{blogEntry.entry_title}}</h1>
     </a>
-    <p ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.entry_text)"></p>
+    <p class="blogEntry-text" ng-bind-html="blogEntry.entry_text" ellipsis></p>
+    <!-- <p ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.entry_text)"></p> -->
   </div>
 </div>

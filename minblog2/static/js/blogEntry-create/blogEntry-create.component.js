@@ -40,6 +40,11 @@ component('blogEntryCreate', {
       setup: function (editor) {
         editor.on('keyup', function (e) {
           var current_content = editor.getContent();
+
+          // var body = editor.getBody();
+          // var text = tinymce.trim(body.innerText || body.textContent);
+          // console.log(text.split(/[\w\u2019\'-]+/).length);
+
           toggleSubmitBtn(viewModel.newBlogEntryTitle, current_content);
         });
       },
@@ -47,9 +52,9 @@ component('blogEntryCreate', {
       browser_spellcheck: true,
       plugins: [
         'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-        'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+        'searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
         'save table contextmenu directionality emoticons template paste textcolor'
-      ],
+      ], //wordcount
       style_formats: [
         {
           title: 'Headers', items: [

@@ -21,3 +21,8 @@
 .blogEntry-entry .blogEntry-header {
   /*letter-spacing: 1px;*/
 }
+
+.blogEntry-entry .blogEntry-text {
+  max-height: 150px;
+  overflow: hidden;
+}
