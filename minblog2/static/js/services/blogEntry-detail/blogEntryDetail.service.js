@@ -4,6 +4,8 @@ angular.
 module('services.blogEntryDetail').
 factory('BlogEntryDetail', ['$resource',
 function($resource) {
-  return $resource('/api/blogentrydetail/:entryId');
+  return $resource('/api/blogentrydetail/:entryId', null, {
+    'update': { method: 'PUT' }
+  });
 }
 ]);

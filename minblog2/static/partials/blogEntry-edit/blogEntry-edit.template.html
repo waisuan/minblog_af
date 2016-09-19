@@ -1,0 +1,26 @@
+<div class="blogEntryEdit">
+    <form ng-submit="$ctrl.updateBlogEntryFunc()">
+        <input  type="text"
+                class="form-control"
+                placeholder="What's on your mind?"
+                id="blogEntryEdit-editEntryTitle"
+                value="$ctrl.editBlogEntryTitle"
+                ng-model="$ctrl.editBlogEntryTitle"
+                ng-keyup="$ctrl.keyUpHandler()"
+                autofocus >
+        <textarea ui-tinymce="$ctrl.tinymceOptions"
+                  id="blogEntryEdit-editEntryText"
+                  ng-model="$ctrl.editBlogEntryText">{{$ctrl.editBlogEntryText}}</textarea>
+        <button type="submit"
+                id="blogEntryEdit-submitBtn"
+                data-loading-text="Updating..."
+                class="btn btn-primary btn-lg btn-block">Done</button>
+        <div id="blogEntryEdit-successAlert"
+             class="alert alert-success alert-dismissible"
+             role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>Done!</strong> Your blog entry has been updated!
+        </div>
+    </form>
+</div>

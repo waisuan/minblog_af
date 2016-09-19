@@ -1,6 +1,6 @@
 <script src="static/js/blogEntry-create/blogEntry-create.jquery.js"></script>
 
-<div class="blogEntryCreate ">
+<div class="blogEntryCreate">
     <form ng-submit="$ctrl.createNewBlogEntryFunc()">
         <input  type="text"
                 class="form-control"
@@ -14,6 +14,14 @@
                   ng-model="$ctrl.newBlogEntryText"></textarea>
         <button type="submit"
                 id="blogEntryCreate-submitBtn"
+                data-loading-text="Creating..."
                 class="btn btn-primary btn-lg btn-block disabled">Create</button>
+        <div id="blogEntryCreate-successAlert"
+             class="alert alert-success alert-dismissible"
+             role="alert">
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                     aria-hidden="true">&times;</span></button>
+             <strong>Done!</strong> Your blog entry has been created!
+       </div>
     </form>
 </div>

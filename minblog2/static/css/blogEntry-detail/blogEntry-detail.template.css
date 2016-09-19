@@ -6,3 +6,8 @@
   border-radius: 10px;
   background-color: #FFFFFF; /*White*/
 }
+
+.blogEntryDetail-buttonGroup {
+  float: right;
+  overflow: hidden;
+}

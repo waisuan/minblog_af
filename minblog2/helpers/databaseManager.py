@@ -61,3 +61,18 @@ class DatabaseManager:
                                                     })
 
         return str(insert_result.inserted_id) # Original _id type is ObjectId
+
+    def update_entry(self, entry_id, updatedEntryTitle, updatedEntryText):
+        now_date = time.strftime("%d/%m/%Y")
+        now_time = time.strftime("%I:%M %p")
+
+        update_result = self.entries_col.update_one({"_id": ObjectId(entry_id)},
+                                                    {"$set": {  "entry_title": updatedEntryTitle,
+                                                                "entry_text": updatedEntryText,
+                                                                "modified_on_date": now_date,
+                                                                "modified_on_time": now_time,
+                                                                "is_modified": True
+                                                             }
+                                                    })
+
+        return update_result.modified_count

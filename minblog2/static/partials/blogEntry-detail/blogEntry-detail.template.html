@@ -2,3 +2,7 @@
   <h1>{{$ctrl.detailedBlogEntry.entry_title}}</h1>
   <p ng-bind-html="$ctrl.detailedBlogEntry.entry_text"></p>
 </div>
+<div class="blogEntryDetail-buttonGroup">
+  <button type="button" class="btn btn-warning" ng-click="$ctrl.gotoEdit()">Edit</button>
+  <button type="button" class="btn btn-danger">Delete</button>
+</div>

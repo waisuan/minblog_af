@@ -22,3 +22,7 @@
   /*float: right;
   overflow: hidden;*/
 }
+
+.blogEntryCreate #blogEntryCreate-successAlert {
+  display: none;
+}

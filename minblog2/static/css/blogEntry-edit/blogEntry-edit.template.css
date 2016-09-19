@@ -1,0 +1,13 @@
+.blogEntryEdit #blogEntryEdit-editEntryTitle {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.blogEntryEdit #blogEntryEdit-submitBtn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.blogEntryEdit #blogEntryEdit-successAlert {
+  display: none;
+}

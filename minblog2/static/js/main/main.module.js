@@ -8,5 +8,6 @@ angular.module('minblog', [
   'utils.minblog',
   'blogEntryList',
   'blogEntryDetail',
-  'blogEntryCreate'
+  'blogEntryCreate',
+  'blogEntryEdit'
 ]);
