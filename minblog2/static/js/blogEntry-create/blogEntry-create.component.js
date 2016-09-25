@@ -4,9 +4,8 @@ angular.
 module('blogEntryCreate').
 component('blogEntryCreate', {
   templateUrl: 'static/partials/blogEntry-create/blogEntry-create.template.html',
-  controller: ['BlogEntry',
-  function BlogEntryCreateController(BlogEntry) {
-
+  controller: ['BlogEntry', 'Ellipsis',
+  function BlogEntryCreateController(BlogEntry, Ellipsis) {
     var viewModel = this;
 
     this.toggleSubmitBtn = function (current_title, current_content, wordCount) {
@@ -60,7 +59,9 @@ component('blogEntryCreate', {
         var newBlogEntry = new BlogEntry();
         newBlogEntry.title = this.newBlogEntryTitle;
         newBlogEntry.text = this.newBlogEntryText;
-        newBlogEntry.$save();
+
+        Ellipsis.ellipsisfy(newBlogEntry.title, newBlogEntry.text);
+        //newBlogEntry.$save();
 
         this.newBlogEntryTitle = "";
         this.newBlogEntryText = "";

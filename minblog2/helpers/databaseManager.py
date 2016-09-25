@@ -11,10 +11,10 @@ class DatabaseManager:
 
     # sort by [default] ascending order
     def get_all_entries(self, sort_by=-1):
-        all_entries = self.entries_col.find().sort([("_id", sort_by)])
+        all_entries = self.entries_col.find().sort([('_id', sort_by)])
         entries_as_dict =   [
                                 dict(
-                                        id                  = str(entry.get('_id', '9999')),
+                                        entry_id            = str(entry.get('_id', '9999')),
                                         creator             = entry.get('creator', '????'),
                                         created_on_date     = entry.get('created_on_date', '????'),
                                         created_on_time     = entry.get('created_on_time', '????'),
@@ -28,12 +28,12 @@ class DatabaseManager:
 
         return entries_as_dict
 
-    def get_entry_by_id(self, entryId):
-        entry = self.entries_col.find_one({'_id': ObjectId(entryId)})
+    def get_entry_by_id(self, entry_id):
+        entry = self.entries_col.find_one({'_id': ObjectId(entry_id)})
         if len(entry) == 0:
             return {}
         entry = dict(
-                        id                  = str(entry.get('_id', '9999')),
+                        entry_id            = str(entry.get('_id', '9999')),
                         creator             = entry.get('creator', '????'),
                         created_on_date     = entry.get('created_on_date', '????'),
                         created_on_time     = entry.get('created_on_time', '????'),
@@ -50,14 +50,14 @@ class DatabaseManager:
         now_time = time.strftime("%I:%M %p")
 
         insert_result = self.entries_col.insert_one({
-                                                        "creator"           : 'admin',
-                                                        "created_on_date"   : now_date,
-                                                        "created_on_time"   : now_time,
-                                                        "entry_title"       : new_entry_title,
-                                                        "entry_text"        : new_entry_text,
-                                                        "modified_on_date"  : now_date,
-                                                        "modified_on_time"  : now_time,
-                                                        "is_modified"       : False
+                                                        'creator'           : 'admin',
+                                                        'created_on_date'   : now_date,
+                                                        'created_on_time'   : now_time,
+                                                        'entry_title'       : new_entry_title,
+                                                        'entry_text'        : new_entry_text,
+                                                        'modified_on_date'  : now_date,
+                                                        'modified_on_time'  : now_time,
+                                                        'is_modified'       : False
                                                     })
 
         return str(insert_result.inserted_id) # Original _id type is ObjectId
@@ -66,13 +66,18 @@ class DatabaseManager:
         now_date = time.strftime("%d/%m/%Y")
         now_time = time.strftime("%I:%M %p")
 
-        update_result = self.entries_col.update_one({"_id": ObjectId(entry_id)},
-                                                    {"$set": {  "entry_title": updatedEntryTitle,
-                                                                "entry_text": updatedEntryText,
-                                                                "modified_on_date": now_date,
-                                                                "modified_on_time": now_time,
-                                                                "is_modified": True
+        update_result = self.entries_col.update_one({'_id': ObjectId(entry_id)},
+                                                    {'$set': {  'entry_title': updatedEntryTitle,
+                                                                'entry_text': updatedEntryText,
+                                                                'modified_on_date': now_date,
+                                                                'modified_on_time': now_time,
+                                                                'is_modified': True
                                                              }
                                                     })
 
         return update_result.modified_count
+
+    def delete_entry(self, entry_id):
+        del_result = self.entries_col.delete_one({'_id': ObjectId(entry_id)})
+
+        return del_result.deleted_count

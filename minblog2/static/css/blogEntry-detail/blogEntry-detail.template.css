@@ -11,3 +11,32 @@
   float: right;
   overflow: hidden;
 }
+
+.blogEntryDetail-deleteModal {
+  /*padding: 15%;*/
+}
+
+/*Credits to: http://stackoverflow.com/questions/18053408/vertically-centering-bootstrap-modal-window*/
+.blogEntryDetail-deleteModal .specialModalAligner {
+  display:table;
+  height: 100%;
+  width: 100%;
+  /*This makes sure that we can still click outside of the modal to close it*/
+  pointer-events:none;
+}
+
+.specialModalAligner .centrify {
+  /*To center vertically*/
+  display: table-cell;
+  vertical-align: middle;
+  pointer-events:none;
+}
+
+.centrify .modal-content {
+  /*Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it*/
+  width:inherit;
+  height:inherit;
+  /*To center horizontally*/
+  margin: 0 auto;
+  pointer-events: all;
+}

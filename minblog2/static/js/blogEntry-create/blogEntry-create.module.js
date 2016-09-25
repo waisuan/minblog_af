@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('blogEntryCreate', ['services.blogEntry', 'ui.tinymce']);
+angular.module('blogEntryCreate', ['services.blogEntry', 'services.ellipsis', 'ui.tinymce']);

@@ -25,3 +25,15 @@
        </div>
     </form>
 </div>
+
+<!-- visibility: hidden -->
+<span id="blogEntryDummySpan" style="display: none">
+  <div class="blogEntryList">
+    <div class="blogEntry-entry">
+      <a class="blogEntry-header-anchor" href="#">
+        <h1 class="blogEntry-header">{{$ctrl.newBlogEntryTitle}}</h1>
+      </a>
+      <p id="blogEntryDummyP" class="blogEntry-text" ng-bind-html="$ctrl.newBlogEntryText"></p>
+    </div>
+  </div>
+</span>

@@ -2,6 +2,7 @@ from flask_restful import Api, reqparse
 
 from minblog2 import app
 from minblog2.helpers.databaseManager import DatabaseManager
+from minblog2.helpers.htmlManager import HtmlStripper
 
 
 api = Api(app)
@@ -16,3 +17,5 @@ except pymongo.errors.ConnectionFailure, e:
 except pymongo.errors.PyMongoError, e:
     print "%s" % e
     sys.exit
+
+stripper = HtmlStripper()

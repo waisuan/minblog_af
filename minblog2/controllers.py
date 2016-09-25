@@ -30,13 +30,13 @@ class BlogEntries(Resource):
 
 
 class BlogEntryDetail(Resource):
-    def get(self, entryId):
-        return dbManager.get_entry_by_id(entryId), 200
+    def get(self, entry_id):
+        return dbManager.get_entry_by_id(entry_id), 200
 
-    def put(self):
+    def put(self, entry_id):
         put_payload = request.get_json()
-        if put_payload is not None:
-            updatedEntryId = put_payload.get('id')
+        if put_payload is not None and entry_id is not None:
+            updatedEntryId = entry_id #put_payload.get('entry_id')
             updatedEntryTitle = put_payload.get('entry_title')
             updatedEntryText = put_payload.get('entry_text')
             if updatedEntryTitle is None or updatedEntryText is None:
@@ -45,10 +45,14 @@ class BlogEntryDetail(Resource):
             return {'_id' : updatedEntryId}, 201
         return {}, 201
 
+    def delete(self, entry_id):
+        dbManager.delete_entry(entry_id)
+        return {'_id' : entry_id}, 204
+
 
 api.add_resource(BlogEntries, '/api/blogentries')
 api.add_resource(BlogEntryDetail, '/api/blogentrydetail',
-                                  '/api/blogentrydetail/<entryId>' )
+                                  '/api/blogentrydetail/<entry_id>' )
 
 # @app.errorhandler(404)
 # def page_not_found(e):
