@@ -23,6 +23,11 @@
 }
 
 .blogEntry-entry .blogEntry-text {
+  /*max-height: 150px;
+  overflow: hidden;*/
+}
+
+.blogEntry-entry .blogEntry-text-preferred {
   max-height: 150px;
   overflow: hidden;
 }

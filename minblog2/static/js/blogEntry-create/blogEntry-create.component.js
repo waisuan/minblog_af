@@ -4,9 +4,13 @@ angular.
 module('blogEntryCreate').
 component('blogEntryCreate', {
   templateUrl: 'static/partials/blogEntry-create/blogEntry-create.template.html',
-  controller: ['BlogEntry', 'Ellipsis',
-  function BlogEntryCreateController(BlogEntry, Ellipsis) {
+  controller: ['BlogEntry', 'Ellipsis', '$sce',
+  function BlogEntryCreateController(BlogEntry, Ellipsis, $sce) {
     var viewModel = this;
+
+    this.explicitlyTrustedHtml = function (untrusted_html) {
+      return $sce.trustAsHtml(untrusted_html);
+    }
 
     this.toggleSubmitBtn = function (current_title, current_content, wordCount) {
       if (current_title && current_content
@@ -31,7 +35,7 @@ component('blogEntryCreate', {
             $btn.addClass('disabled'); // will work, but it's UGLY!
           }, 0);
           viewModel.alertSuccess();
-        }, 1000);
+        }, 1300);
       }
 
       this.ableToProceed = function () {
@@ -60,8 +64,11 @@ component('blogEntryCreate', {
         newBlogEntry.title = this.newBlogEntryTitle;
         newBlogEntry.text = this.newBlogEntryText;
 
-        Ellipsis.ellipsisfy(newBlogEntry.title, newBlogEntry.text);
-        //newBlogEntry.$save();
+        this.quickText = Ellipsis.ellipsisfy(newBlogEntry.text);
+        console.log(this.quickText);
+        newBlogEntry.quick_text = this.quickText;
+
+        newBlogEntry.$save();
 
         this.newBlogEntryTitle = "";
         this.newBlogEntryText = "";

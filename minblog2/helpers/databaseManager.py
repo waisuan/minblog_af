@@ -20,6 +20,7 @@ class DatabaseManager:
                                         created_on_time     = entry.get('created_on_time', '????'),
                                         entry_title         = entry.get('entry_title', '????'),
                                         entry_text          = entry.get('entry_text', '????'),
+                                        quick_text          = entry.get('quick_text', entry.get('entry_text')),
                                         modified_on_date    = entry.get('modified_on_date', '????'),
                                         modified_on_time    = entry.get('modified_on_time', '????'),
                                         is_modified         = entry.get('is_modified', False)
@@ -39,13 +40,14 @@ class DatabaseManager:
                         created_on_time     = entry.get('created_on_time', '????'),
                         entry_title         = entry.get('entry_title', '????'),
                         entry_text          = entry.get('entry_text', '????'),
+                        quick_text          = entry.get('quick_text', entry.get('entry_text')),
                         modified_on_date    = entry.get('modified_on_date', '????'),
                         modified_on_time    = entry.get('modified_on_time', '????'),
                         is_modified         = entry.get('is_modified', False)
                     )
         return entry
 
-    def create_new_entry(self, new_entry_title, new_entry_text):
+    def create_new_entry(self, newEntryTitle, newEntryText, newQuickText):
         now_date = time.strftime("%d/%m/%Y")
         now_time = time.strftime("%I:%M %p")
 
@@ -53,8 +55,9 @@ class DatabaseManager:
                                                         'creator'           : 'admin',
                                                         'created_on_date'   : now_date,
                                                         'created_on_time'   : now_time,
-                                                        'entry_title'       : new_entry_title,
-                                                        'entry_text'        : new_entry_text,
+                                                        'entry_title'       : newEntryTitle,
+                                                        'entry_text'        : newEntryText,
+                                                        'quick_text'        : newQuickText,
                                                         'modified_on_date'  : now_date,
                                                         'modified_on_time'  : now_time,
                                                         'is_modified'       : False
@@ -62,16 +65,17 @@ class DatabaseManager:
 
         return str(insert_result.inserted_id) # Original _id type is ObjectId
 
-    def update_entry(self, entry_id, updatedEntryTitle, updatedEntryText):
+    def update_entry(self, entry_id, updatedEntryTitle, updatedEntryText, updatedQuickText):
         now_date = time.strftime("%d/%m/%Y")
         now_time = time.strftime("%I:%M %p")
 
         update_result = self.entries_col.update_one({'_id': ObjectId(entry_id)},
-                                                    {'$set': {  'entry_title': updatedEntryTitle,
-                                                                'entry_text': updatedEntryText,
-                                                                'modified_on_date': now_date,
-                                                                'modified_on_time': now_time,
-                                                                'is_modified': True
+                                                    {'$set': {  'entry_title'       : updatedEntryTitle,
+                                                                'entry_text'        : updatedEntryText,
+                                                                'quick_text'        : updatedQuickText,
+                                                                'modified_on_date'  : now_date,
+                                                                'modified_on_time'  : now_time,
+                                                                'is_modified'       : True
                                                              }
                                                     })
 

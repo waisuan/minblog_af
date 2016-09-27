@@ -23,9 +23,10 @@ class BlogEntries(Resource):
         if post_payload is not None:
             newEntryTitle = post_payload.get('title')
             newEntryText = post_payload.get('text')
-            if newEntryTitle is None or newEntryText is None:
+            newQuickText = post_payload.get('quick_text')
+            if newEntryTitle is None or newEntryText is None or newQuickText is None:
                 return {}, 400 # Something bad just happened...
-            return {'_id' : dbManager.create_new_entry(newEntryTitle, newEntryText)}, 201
+            return {'_id' : dbManager.create_new_entry(newEntryTitle, newEntryText, newQuickText)}, 201
         return {}, 201
 
 
@@ -39,9 +40,10 @@ class BlogEntryDetail(Resource):
             updatedEntryId = entry_id #put_payload.get('entry_id')
             updatedEntryTitle = put_payload.get('entry_title')
             updatedEntryText = put_payload.get('entry_text')
-            if updatedEntryTitle is None or updatedEntryText is None:
+            updatedQuickText = post_payload.get('quick_text')
+            if updatedEntryTitle is None or updatedEntryText is None or updatedQuickText is None:
                 return {}, 400 # Something bad just happened...
-            dbManager.update_entry(updatedEntryId, updatedEntryTitle, updatedEntryText)
+            dbManager.update_entry(updatedEntryId, updatedEntryTitle, updatedEntryText, updatedQuickText)
             return {'_id' : updatedEntryId}, 201
         return {}, 201
 

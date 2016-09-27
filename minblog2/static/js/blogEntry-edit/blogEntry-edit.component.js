@@ -39,7 +39,7 @@ component('blogEntryEdit', {
         setTimeout(function () {
           $btn.button('reset');
           viewModel.alertSuccess();
-        }, 1000);
+        }, 1300);
       }
 
       this.ableToProceed = function () {

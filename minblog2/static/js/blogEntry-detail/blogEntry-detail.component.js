@@ -20,7 +20,7 @@ component('blogEntryDetail', {
         $('.blogEntryDetail-deleteModal').on('hidden.bs.modal', function () {
           viewModel.goBackHome();
         });
-      }, 1000);
+      }, 1300);
     }
 
     this.entry_id = $routeParams.id;
