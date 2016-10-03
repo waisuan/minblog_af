@@ -4,7 +4,18 @@
     <a class="blogEntry-header-anchor" href="/detail/{{blogEntry.entry_id}}">
       <h1 class="blogEntry-header">{{blogEntry.entry_title}}</h1>
     </a>
-    <!-- <p class="blogEntry-text" ng-bind-html="blogEntry.quick_text"></p> -->
+    <!-- <p class="blogEntry-text" ng-bind-html="blogEntry.entry_text" ellipsis></p> -->
     <p class="blogEntry-text" ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.quick_text)"></p>
+  </div>
+  <div id="blogEntryList-pag">
+    <ul uib-pagination
+        boundary-links="true"
+        total-items="$ctrl.totalItems"
+        max-size="$ctrl.maxSize"
+        force-ellipses="true"
+        ng-model="$ctrl.currentPage"
+        ng-change="$ctrl.pageChanged()"
+        class="pagination-sm"
+        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
   </div>
 </div>
