@@ -76,8 +76,6 @@ component('blogEntryEdit', {
         BlogEntryDetail.update({'entry_id': this.entry_id}, this.detailedBlogEntry);
       }
 
-      this.wordCount = 0;
-
       this.keyUpHandler = function() {
         this.toggleSubmitBtn(this.editBlogEntryTitle,
           this.editBlogEntryText,
@@ -91,9 +89,7 @@ component('blogEntryEdit', {
             editor.on('keyup', function (e) {
               var current_content = editor.getContent();
 
-              viewModel.wordCount = viewModel.getTinyMceWordCount();
-
-              viewModel.toggleSubmitBtn(viewModel.editBlogEntryTitle, current_content, viewModel.wordCount);
+              viewModel.toggleSubmitBtn(viewModel.editBlogEntryTitle, current_content, viewModel.getTinyMceWordCount());
             });
           },
           height: '450',

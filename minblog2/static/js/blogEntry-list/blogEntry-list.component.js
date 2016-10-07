@@ -8,27 +8,38 @@ component('blogEntryList', {
   function BlogEntryListController(BlogEntry, $sce, $scope) {
     var viewModel = this;
 
-    this.totalItems = 64;
+    this.totalItems = 0;
+    this.itemsPerPage = 10;
     this.currentPage = 1;
     this.maxSize = 4;
     this.positionOfLastBlogEntry = 0;
     this.allBlogEntries = [];
     this.currBlogEntries = [];
     this.blogEntries = BlogEntry.query();
-    // this.blogEntries.$promise.then(function (blogEntries) {
-    //   for (var i = 0; i < blogEntries.length; ++i) {
-    //     viewModel.allBlogEntries.push(blogEntries[i]);
-    //   }
-    //
-    //   for (var i = 0; i < 5; ++i) {
-    //     viewModel.currBlogEntries.push(blogEntries[i]);
-    //   }
-    //
-    //   viewModel.positionOfLastBlogEntry = 5;
-    // });
+    this.blogEntries.$promise.then(function (blogEntries) {
+      for (var i = 0; i < blogEntries.length; ++i) {
+        viewModel.totalItems += 1;
+        viewModel.allBlogEntries.push(blogEntries[i]);
+      }
+
+      for (var i = 0; i < viewModel.itemsPerPage; ++i) {
+        viewModel.currBlogEntries.push(blogEntries[i]);
+      }
+
+      viewModel.positionOfLastBlogEntry = viewModel.itemsPerPage;
+    });
 
     this.pageChanged = function() {
-      console.log('PageChanged');
+      console.log(viewModel.currentPage);
+
+      viewModel.currBlogEntries = [];
+      var first = viewModel.positionOfLastBlogEntry;
+      var last = viewModel.positionOfLastBlogEntry + viewModel.itemsPerPage;
+      last = last < viewModel.totalItems ? last : viewModel.totalItems;
+
+      for (var i = first; i < last; ++i) {
+        viewModel.currBlogEntries.push(viewModel.allBlogEntries[i]);
+      }
     };
 
     // var win = $(window);
