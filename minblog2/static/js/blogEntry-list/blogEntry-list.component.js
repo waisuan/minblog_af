@@ -8,6 +8,7 @@ component('blogEntryList', {
   function BlogEntryListController(BlogEntry, $sce, $scope) {
     var viewModel = this;
 
+    this.last_entry_id = '000000000000000000000000';
     this.totalItems = 0;
     this.itemsPerPage = 10;
     this.currentPage = 1;
@@ -16,18 +17,18 @@ component('blogEntryList', {
     this.allBlogEntries = [];
     this.currBlogEntries = [];
     this.blogEntries = BlogEntry.query();
-    this.blogEntries.$promise.then(function (blogEntries) {
-      for (var i = 0; i < blogEntries.length; ++i) {
-        viewModel.totalItems += 1;
-        viewModel.allBlogEntries.push(blogEntries[i]);
-      }
-
-      for (var i = 0; i < viewModel.itemsPerPage; ++i) {
-        viewModel.currBlogEntries.push(blogEntries[i]);
-      }
-
-      viewModel.positionOfLastBlogEntry = viewModel.itemsPerPage;
-    });
+    // this.blogEntries.$promise.then(function (blogEntries) {
+    //   for (var i = 0; i < blogEntries.length; ++i) {
+    //     viewModel.totalItems += 1;
+    //     viewModel.allBlogEntries.push(blogEntries[i]);
+    //   }
+    //
+    //   for (var i = 0; i < viewModel.itemsPerPage; ++i) {
+    //     viewModel.currBlogEntries.push(blogEntries[i]);
+    //   }
+    //
+    //   viewModel.positionOfLastBlogEntry = viewModel.itemsPerPage;
+    // });
 
     this.pageChanged = function() {
       console.log(viewModel.currentPage);

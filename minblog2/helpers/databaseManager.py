@@ -9,7 +9,7 @@ class DatabaseManager:
         db = client.flaskr
         self.entries_col = db.entries
 
-    # sort by [default] ascending order
+    # sort by [default] descending/latest order
     def get_all_entries(self, sort_by=-1):
         all_entries = self.entries_col.find().sort([('_id', sort_by)])
         entries_as_dict =   [
@@ -25,6 +25,25 @@ class DatabaseManager:
                                         modified_on_time    = entry.get('modified_on_time', '????'),
                                         is_modified         = entry.get('is_modified', False)
                                     ) for entry in all_entries
+                            ]
+
+        return entries_as_dict
+
+    def get_entries_by_pages(self, last_entry_id, sort_by=-1):
+        curr_entries = self.entries.col.find({'_id': {'$gt': ObjectId(last_entry_id)}}).sort({'$natural': sort_by}).limit(10)
+        entries_as_dict =   [
+                                dict(
+                                        entry_id            = str(entry.get('_id', '9999')),
+                                        creator             = entry.get('creator', '????'),
+                                        created_on_date     = entry.get('created_on_date', '????'),
+                                        created_on_time     = entry.get('created_on_time', '????'),
+                                        entry_title         = entry.get('entry_title', '????'),
+                                        entry_text          = entry.get('entry_text', '????'),
+                                        quick_text          = entry.get('quick_text', entry.get('entry_text')),
+                                        modified_on_date    = entry.get('modified_on_date', '????'),
+                                        modified_on_time    = entry.get('modified_on_time', '????'),
+                                        is_modified         = entry.get('is_modified', False)
+                                    ) for entry in curr_entries
                             ]
 
         return entries_as_dict

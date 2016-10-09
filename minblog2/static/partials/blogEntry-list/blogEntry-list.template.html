@@ -1,13 +1,13 @@
 <div class="blogEntryList">
   <input type="text" class="form-control" placeholder="Search something..." ng-model="$ctrl.search" />
-  <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.currBlogEntries | filter:$ctrl.search">
+  <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries | filter:$ctrl.search">
     <a class="blogEntry-header-anchor" href="/detail/{{blogEntry.entry_id}}">
       <h1 class="blogEntry-header">{{blogEntry.entry_title}}</h1>
     </a>
     <!-- <p class="blogEntry-text" ng-bind-html="blogEntry.entry_text" ellipsis></p> -->
     <p class="blogEntry-text" ng-bind-html="$ctrl.explicitlyTrustedHtml(blogEntry.quick_text)"></p>
   </div>
-  <div id="blogEntryList-pag">
+  <!-- <div id="blogEntryList-pag">
     <ul uib-pagination
         boundary-links="true"
         total-items="$ctrl.totalItems"
@@ -17,5 +17,5 @@
         ng-change="$ctrl.pageChanged()"
         class="pagination-sm"
         previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
-  </div>
+  </div> -->
 </div>

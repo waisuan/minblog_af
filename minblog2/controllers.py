@@ -21,8 +21,8 @@ class BlogEntries(Resource):
     def post(self):
         post_payload = request.get_json()
         if post_payload is not None:
-            newEntryTitle = post_payload.get('title')
-            newEntryText = post_payload.get('text')
+            newEntryTitle = post_payload.get('entry_title')
+            newEntryText = post_payload.get('entry_text')
             newQuickText = post_payload.get('quick_text')
             if newEntryTitle is None or newEntryText is None or newQuickText is None:
                 return {}, 400 # Something bad just happened...
@@ -40,7 +40,7 @@ class BlogEntryDetail(Resource):
             updatedEntryId = entry_id #put_payload.get('entry_id')
             updatedEntryTitle = put_payload.get('entry_title')
             updatedEntryText = put_payload.get('entry_text')
-            updatedQuickText = post_payload.get('quick_text')
+            updatedQuickText = put_payload.get('quick_text')
             if updatedEntryTitle is None or updatedEntryText is None or updatedQuickText is None:
                 return {}, 400 # Something bad just happened...
             dbManager.update_entry(updatedEntryId, updatedEntryTitle, updatedEntryText, updatedQuickText)
@@ -52,7 +52,8 @@ class BlogEntryDetail(Resource):
         return {'_id' : entry_id}, 204
 
 
-api.add_resource(BlogEntries, '/api/blogentries')
+api.add_resource(BlogEntries, '/api/blogentries',
+                              '/api/blogentries/<page>')
 api.add_resource(BlogEntryDetail, '/api/blogentrydetail',
                                   '/api/blogentrydetail/<entry_id>' )
 

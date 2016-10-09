@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('blogEntryEdit', ['ngRoute', 'services.blogEntryDetail']);
+angular.module('blogEntryEdit', ['ngRoute', 'services.blogEntryDetail', 'services.ellipsis']);

@@ -4,7 +4,7 @@ angular.
 module('services.ellipsis').
 factory('Ellipsis', ['$sce', function($sce) {
   return {
-    ellipsisfy: function(text) {
+    ellipsisfy: function(text, element) {
 
       this.isOverflowed = function (thisElement) {
         return thisElement[0].scrollHeight > thisElement[0].clientHeight;
@@ -17,10 +17,10 @@ factory('Ellipsis', ['$sce', function($sce) {
       var ellipsisSeparator = ' ';
       var bindArray = binding.split(ellipsisSeparator);
 
-      var inviBlock = $('#blogEntryCreate-inviBlock');
-      inviBlock.css('display', '');
-      inviBlock.css('visibility', 'hidden');
-      var element = $('#blogEntryCreate-inviBlockText');
+      // var inviBlock = $('#blogEntryCreate-inviBlock');
+      // inviBlock.css('display', '');
+      // inviBlock.css('visibility', 'hidden');
+      // var element = $('#blogEntryCreate-inviBlockText');
 
       if (this.isOverflowed(element)) {
         var bindArrayStartingLength = bindArray.length,

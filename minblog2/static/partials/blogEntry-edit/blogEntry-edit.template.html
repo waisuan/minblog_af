@@ -24,3 +24,16 @@
         </div>
     </form>
 </div>
+
+<span id="blogEntryEdit-inviBlock" style="display: none">
+  <div class="blogEntryList">
+    <div class="blogEntry-entry">
+      <a class="blogEntry-header-anchor" href="#">
+        <h1 class="blogEntry-header">{{$ctrl.editBlogEntryTitle}}</h1>
+      </a>
+      <p id="blogEntryEdit-inviBlockText"
+         class="blogEntry-text-preferred"
+         ng-bind-html="$ctrl.explicitlyTrustedHtml($ctrl.editBlogEntryText)"></p>
+    </div>
+  </div>
+</span>

@@ -4,18 +4,22 @@ angular.
 module('blogEntryEdit').
 component('blogEntryEdit', {
   templateUrl: 'static/partials/blogEntry-edit/blogEntry-edit.template.html',
-  controller: ['$routeParams', 'BlogEntryDetail',
-  function BlogEntryEditController($routeParams, BlogEntryDetail) {
+  controller: ['$routeParams', 'BlogEntryDetail', 'Ellipsis', '$sce',
+  function BlogEntryEditController($routeParams, BlogEntryDetail, Ellipsis, $sce) {
     var viewModel = this;
 
-    this.toggleSubmitBtn = function (current_title, current_content, wordCount) {
-      if (current_title && current_content
-        && $("#blogEntryEdit-submitBtn").hasClass("disabled")
-        && wordCount >= 180) {
-          $("#blogEntryEdit-submitBtn").removeClass("disabled");
-        } else if ((!current_title || !current_content || wordCount < 180)
-        && !$("#blogEntryEdit-submitBtn").hasClass("disabled")) {
-          $("#blogEntryEdit-submitBtn").addClass("disabled");
+    this.explicitlyTrustedHtml = function (untrusted_html) {
+      return $sce.trustAsHtml(untrusted_html);
+    }
+
+    this.toggleSubmitBtn = function (current_title, wordCount) {
+      if (current_title
+          && wordCount >= 180
+          && $('#blogEntryEdit-submitBtn').hasClass('disabled')) {
+          $('#blogEntryEdit-submitBtn').removeClass('disabled');
+        } else if ((!current_title || wordCount < 180)
+                    && !$('#blogEntryEdit-submitBtn').hasClass('disabled')) {
+          $('#blogEntryEdit-submitBtn').addClass('disabled');
         }
       }
 
@@ -43,7 +47,7 @@ component('blogEntryEdit', {
       }
 
       this.ableToProceed = function () {
-        if ($("#blogEntryEdit-submitBtn").hasClass("disabled")) {
+        if ($('#blogEntryEdit-submitBtn').hasClass('disabled')) {
           return false;
         }
 
@@ -52,7 +56,7 @@ component('blogEntryEdit', {
 
       /*Credits to: http://fiddle.jshell.net/sunnypmody/XDaEk/*/
       this.alertSuccess = function () {
-        $( "#blogEntryEdit-successAlert" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+        $('#blogEntryEdit-successAlert').fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
       }
 
       this.entry_id = $routeParams.id;
@@ -73,12 +77,22 @@ component('blogEntryEdit', {
 
         this.detailedBlogEntry.entry_title = this.editBlogEntryTitle;
         this.detailedBlogEntry.entry_text = this.editBlogEntryText;
+
+        var inviBlock = $('#blogEntryEdit-inviBlock');
+        inviBlock.css('display', '');
+        inviBlock.css('visibility', 'hidden');
+        var element = $('#blogEntryEdit-inviBlockText');
+        this.updatedQuickText = Ellipsis.ellipsisfy(this.detailedBlogEntry.entry_text, element);
+        inviBlock.css('visibility', '');
+        inviBlock.css('display', 'none');
+        console.log(this.updatedQuickText);
+        this.detailedBlogEntry.quick_text = this.updatedQuickText;
+
         BlogEntryDetail.update({'entry_id': this.entry_id}, this.detailedBlogEntry);
       }
 
       this.keyUpHandler = function() {
         this.toggleSubmitBtn(this.editBlogEntryTitle,
-          this.editBlogEntryText,
           this.getTinyMceWordCount());
         }
 
@@ -88,8 +102,7 @@ component('blogEntryEdit', {
             }),
             editor.on('keyup', function (e) {
               var current_content = editor.getContent();
-
-              viewModel.toggleSubmitBtn(viewModel.editBlogEntryTitle, current_content, viewModel.getTinyMceWordCount());
+              viewModel.toggleSubmitBtn(viewModel.editBlogEntryTitle, viewModel.getTinyMceWordCount());
             });
           },
           height: '450',

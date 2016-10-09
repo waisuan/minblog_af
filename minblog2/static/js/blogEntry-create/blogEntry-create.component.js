@@ -12,14 +12,14 @@ component('blogEntryCreate', {
       return $sce.trustAsHtml(untrusted_html);
     }
 
-    this.toggleSubmitBtn = function (current_title, current_content, wordCount) {
-      if (current_title && current_content
-        && $("#blogEntryCreate-submitBtn").hasClass("disabled")
-        && wordCount >= 180) {
-          $("#blogEntryCreate-submitBtn").removeClass("disabled");
-        } else if ((!current_title || !current_content || wordCount < 180)
-        && !$("#blogEntryCreate-submitBtn").hasClass("disabled")) {
-          $("#blogEntryCreate-submitBtn").addClass("disabled");
+    this.toggleSubmitBtn = function (current_title, wordCount) {
+      if (current_title
+          && wordCount >= 180
+          && $('#blogEntryCreate-submitBtn').hasClass('disabled')) {
+          $('#blogEntryCreate-submitBtn').removeClass('disabled');
+        } else if ((!current_title || wordCount < 180)
+                    && !$('#blogEntryCreate-submitBtn').hasClass('disabled')) {
+          $('#blogEntryCreate-submitBtn').addClass('disabled');
         }
       }
 
@@ -39,7 +39,7 @@ component('blogEntryCreate', {
       }
 
       this.ableToProceed = function () {
-        if ($("#blogEntryCreate-submitBtn").hasClass("disabled")) {
+        if ($('#blogEntryCreate-submitBtn').hasClass('disabled')) {
           return false;
         }
 
@@ -48,7 +48,7 @@ component('blogEntryCreate', {
 
       /*Credits to: http://fiddle.jshell.net/sunnypmody/XDaEk/*/
       this.alertSuccess = function () {
-        $( "#blogEntryCreate-successAlert" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+        $('#blogEntryCreate-successAlert').fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
       }
 
       this.newBlogEntryTitle = "";
@@ -61,10 +61,16 @@ component('blogEntryCreate', {
         this.btnLoad();
 
         var newBlogEntry = new BlogEntry();
-        newBlogEntry.title = this.newBlogEntryTitle;
-        newBlogEntry.text = this.newBlogEntryText;
+        newBlogEntry.entry_title = this.newBlogEntryTitle;
+        newBlogEntry.entry_text = this.newBlogEntryText;
 
-        this.quickText = Ellipsis.ellipsisfy(newBlogEntry.text);
+        var inviBlock = $('#blogEntryCreate-inviBlock');
+        inviBlock.css('display', '');
+        inviBlock.css('visibility', 'hidden');
+        var element = $('#blogEntryCreate-inviBlockText');
+        this.quickText = Ellipsis.ellipsisfy(newBlogEntry.entry_text, element);
+        inviBlock.css('visibility', '');
+        inviBlock.css('display', 'none');
         console.log(this.quickText);
         newBlogEntry.quick_text = this.quickText;
 
@@ -79,7 +85,6 @@ component('blogEntryCreate', {
 
       this.keyUpHandler = function() {
         this.toggleSubmitBtn(this.newBlogEntryTitle,
-          this.newBlogEntryText,
           this.wordCount);
         }
 
@@ -94,7 +99,7 @@ component('blogEntryCreate', {
               var wordCount = text.split(/[\w\u2019\'-]+/).length - 1; // Why -1 ? IDK.
               viewModel.wordCount = wordCount;
 
-              viewModel.toggleSubmitBtn(viewModel.newBlogEntryTitle, current_content, wordCount);
+              viewModel.toggleSubmitBtn(viewModel.newBlogEntryTitle, wordCount);
             });
           },
           height: '450',
