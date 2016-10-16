@@ -78,6 +78,7 @@ component('blogEntryCreate', {
 
         this.newBlogEntryTitle = "";
         this.newBlogEntryText = "";
+        this.wordCount = 0;
         // this.toggleSubmitBtn(this.newBlogEntryTitle, this.newBlogEntryText, 0);
       }
 

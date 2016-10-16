@@ -29,8 +29,14 @@ class DatabaseManager:
 
         return entries_as_dict
 
-    def get_entries_by_pages(self, last_entry_id, sort_by=-1):
-        curr_entries = self.entries.col.find({'_id': {'$gt': ObjectId(last_entry_id)}}).sort({'$natural': sort_by}).limit(10)
+    def get_entry_count(self):
+        all_entries = self.entries_col.find()
+        entries_as_list = [ entry for entry in all_entries ]
+        return len(entries_as_list)
+
+    def get_entries_by_page(self, direction, last_entry_id, limit, sort_by=-1):
+        print direction, last_entry_id
+        curr_entries = self.entries_col.find({'_id': {direction: ObjectId(last_entry_id)}}).sort([('$natural', sort_by)]).limit(int(limit))
         entries_as_dict =   [
                                 dict(
                                         entry_id            = str(entry.get('_id', '9999')),

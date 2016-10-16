@@ -8,39 +8,47 @@ component('blogEntryList', {
   function BlogEntryListController(BlogEntry, $sce, $scope) {
     var viewModel = this;
 
+    this.first_entry_id = '000000000000000000000000';
     this.last_entry_id = '000000000000000000000000';
     this.totalItems = 0;
     this.itemsPerPage = 10;
     this.currentPage = 1;
+    this.prevPage = 1;
     this.maxSize = 4;
-    this.positionOfLastBlogEntry = 0;
-    this.allBlogEntries = [];
-    this.currBlogEntries = [];
-    this.blogEntries = BlogEntry.query();
-    // this.blogEntries.$promise.then(function (blogEntries) {
-    //   for (var i = 0; i < blogEntries.length; ++i) {
-    //     viewModel.totalItems += 1;
-    //     viewModel.allBlogEntries.push(blogEntries[i]);
-    //   }
-    //
-    //   for (var i = 0; i < viewModel.itemsPerPage; ++i) {
-    //     viewModel.currBlogEntries.push(blogEntries[i]);
-    //   }
-    //
-    //   viewModel.positionOfLastBlogEntry = viewModel.itemsPerPage;
-    // });
+
+    this.queryHandler = function (blogEntries) {
+      if (blogEntries.count <= 0) {
+        return;
+      }
+
+      viewModel.first_entry_id = blogEntries.entries[0].entry_id;
+      viewModel.last_entry_id = blogEntries.entries[blogEntries.entries.length - 1].entry_id;
+      viewModel.totalItems = blogEntries.count;
+    }
+
+    this.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': this.last_entry_id, 'limit': this.itemsPerPage});
+    this.blogEntries.$promise.then(function (blogEntries) {
+      viewModel.queryHandler(blogEntries);
+    });
 
     this.pageChanged = function() {
-      console.log(viewModel.currentPage);
-
-      viewModel.currBlogEntries = [];
-      var first = viewModel.positionOfLastBlogEntry;
-      var last = viewModel.positionOfLastBlogEntry + viewModel.itemsPerPage;
-      last = last < viewModel.totalItems ? last : viewModel.totalItems;
-
-      for (var i = first; i < last; ++i) {
-        viewModel.currBlogEntries.push(viewModel.allBlogEntries[i]);
+      var direction;
+      var entry_id;
+      if (viewModel.currentPage > viewModel.prevPage) {
+        direction = '-'; // Default sort order is newest-oldest.
+        entry_id = viewModel.last_entry_id;
+      } else {
+        direction = '+';
+        entry_id = viewModel.first_entry_id;
       }
+      viewModel.prevPage = viewModel.currentPage;
+
+      console.log(direction);
+      console.log(entry_id);
+      this.blogEntries = BlogEntry.get({'direction': direction, 'last_entry_id': entry_id, 'limit': viewModel.itemsPerPage});
+      this.blogEntries.$promise.then(function (blogEntries) {
+        viewModel.queryHandler(blogEntries);
+      });
     };
 
     // var win = $(window);
