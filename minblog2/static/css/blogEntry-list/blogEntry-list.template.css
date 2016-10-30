@@ -35,3 +35,20 @@
 .blogEntryList #blogEntryList-pag {
   text-align: center;
 }
+
+.blogEntryList #blogEntryList-sort {
+  margin-top: 10px;
+  /*position: relative;*/
+  float: right;
+  overflow: hidden;
+}
+
+#blogEntryList-sort p, #blogEntryList-sort select {
+  display: inline;
+  /*position:absolute;*/
+  /*right: 0px;*/
+}
+
+.blogEntryList .clear {
+  clear:both;
+}

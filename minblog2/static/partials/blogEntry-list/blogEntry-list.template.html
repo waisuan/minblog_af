@@ -1,5 +1,13 @@
 <div class="blogEntryList">
   <input type="text" class="form-control" placeholder="Search something..." ng-model="$ctrl.search" />
+  <div id="blogEntryList-sort">
+    <p>Sort by: </p>
+    <select ng-model="$ctrl.sortBySelected" ng-change="$ctrl.sortByHandler()">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+    </select>
+  </div>
+  <div class="clear"></div>
   <div class="blogEntry-entry" ng-repeat="blogEntry in $ctrl.blogEntries.entries | filter:$ctrl.search">
     <a class="blogEntry-header-anchor" href="/detail/{{blogEntry.entry_id}}">
       <h1 class="blogEntry-header">{{blogEntry.entry_title}}</h1>

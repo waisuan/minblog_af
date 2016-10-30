@@ -17,12 +17,8 @@ def route_to_main(id=None):
 class BlogEntries(Resource):
     # def get(self):
     #     return dbManager.get_all_entries(), 200
-    def get(self, direction, last_entry_id, limit):
-        if direction == '+':
-            direction = '$gt'
-        else:
-            direction = '$lt'
-        return {'count': dbManager.get_entry_count(), 'entries': dbManager.get_entries_by_page(direction, last_entry_id, limit)}, 200
+    def get(self, direction, last_entry_id, limit, sort_by):
+        return {'count': dbManager.get_entry_count(), 'entries': dbManager.get_entries_by_page(direction, last_entry_id, limit, sort_by)}, 200
 
     def post(self):
         post_payload = request.get_json()
@@ -59,7 +55,7 @@ class BlogEntryDetail(Resource):
 
 
 api.add_resource(BlogEntries, '/api/blogentries',
-                              '/api/blogentries/<direction>/<last_entry_id>/<limit>')
+                              '/api/blogentries/<direction>/<last_entry_id>/<limit>/<sort_by>')
 api.add_resource(BlogEntryDetail, '/api/blogentrydetail',
                                   '/api/blogentrydetail/<entry_id>' )
 

@@ -35,8 +35,13 @@ class DatabaseManager:
         return len(entries_as_list)
 
     def get_entries_by_page(self, direction, last_entry_id, limit, sort_by=-1):
-        print direction, last_entry_id
-        curr_entries = self.entries_col.find({'_id': {direction: ObjectId(last_entry_id)}}).sort([('$natural', sort_by)]).limit(int(limit))
+        if direction == '+':
+            direction = '$gt'
+        else:
+            direction = '$lt'
+        print direction, last_entry_id, sort_by
+        # $natural == natural order
+        curr_entries = self.entries_col.find({'_id': {direction: ObjectId(last_entry_id)}}).sort([('$natural', int(sort_by))]).limit(int(limit))
         entries_as_dict =   [
                                 dict(
                                         entry_id            = str(entry.get('_id', '9999')),

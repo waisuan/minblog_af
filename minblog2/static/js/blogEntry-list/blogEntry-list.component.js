@@ -15,6 +15,30 @@ component('blogEntryList', {
     this.currentPage = 1;
     this.prevPage = 1;
     this.maxSize = 4;
+    this.sortBySelected = 'newest';
+    this.sortBy = -1;
+
+    this.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': this.last_entry_id, 'limit': this.itemsPerPage, 'sort_by': this.sortBy});
+    this.blogEntries.$promise.then(function (blogEntries) {
+      viewModel.queryHandler(blogEntries);
+    });
+
+    this.sortByHandler = function () {
+      if (viewModel.sortBySelected == 'oldest') {
+        viewModel.sortBy = 1; // oldest->newest
+      } else if (viewModel.sortBySelected == 'newest') {
+        viewModel.sortBy = -1; //newest->oldest
+      }
+
+      viewModel.first_entry_id = '000000000000000000000000';
+      viewModel.last_entry_id = '000000000000000000000000';
+      viewModel.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': viewModel.last_entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
+      viewModel.blogEntries.$promise.then(function (blogEntries) {
+        viewModel.queryHandler(blogEntries);
+      });
+      viewModel.currentPage = 1;
+      viewModel.prevPage = 1;
+    }
 
     this.queryHandler = function (blogEntries) {
       if (blogEntries.count <= 0) {
@@ -26,30 +50,30 @@ component('blogEntryList', {
       viewModel.totalItems = blogEntries.count;
     }
 
-    this.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': this.last_entry_id, 'limit': this.itemsPerPage});
-    this.blogEntries.$promise.then(function (blogEntries) {
-      viewModel.queryHandler(blogEntries);
-    });
-
     this.pageChanged = function() {
       var direction;
       var entry_id;
       if (viewModel.currentPage > viewModel.prevPage) {
-        direction = '-'; // Default sort order is newest-oldest.
+        // Default sort order is newest-oldest.
+        // - ==> going backward || less-than first entry in the list
+        // + ==> going forward || more-than last entry in the list
+        direction = viewModel.sortBySelected == 'newest' ? '-' : '+';
         entry_id = viewModel.last_entry_id;
       } else {
-        direction = '+';
+        direction = viewModel.sortBySelected == 'newest' ? '+' : '-';;
         entry_id = viewModel.first_entry_id;
       }
-      viewModel.prevPage = viewModel.currentPage;
 
-      console.log(direction);
-      console.log(entry_id);
-      this.blogEntries = BlogEntry.get({'direction': direction, 'last_entry_id': entry_id, 'limit': viewModel.itemsPerPage});
-      this.blogEntries.$promise.then(function (blogEntries) {
+      viewModel.prevPage = viewModel.currentPage;
+      viewModel.blogEntries = BlogEntry.get({'direction': direction, 'last_entry_id': entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
+      viewModel.blogEntries.$promise.then(function (blogEntries) {
         viewModel.queryHandler(blogEntries);
       });
     };
+
+    this.explicitlyTrustedHtml = function (untrusted_html) {
+      return $sce.trustAsHtml(untrusted_html);
+    }
 
     // var win = $(window);
     // // Each time the user scrolls
@@ -73,10 +97,6 @@ component('blogEntryList', {
     //     $scope.$apply();
     //   }
     // });
-
-    this.explicitlyTrustedHtml = function (untrusted_html) {
-      return $sce.trustAsHtml(untrusted_html);
-    }
   }
 ]
 });
