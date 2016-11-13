@@ -4,6 +4,9 @@ angular.
 module('services.blogEntry').
 factory('BlogEntry', ['$resource',
 function($resource) {
-  return $resource('/api/blogentries/:direction/:last_entry_id/:limit/:sort_by');
+  return {
+    search: $resource('/api/blogsearch/:search_text'),
+    load: $resource('/api/blogentries/:direction/:last_entry_id/:limit/:sort_by')
+  }
 }
 ]);

@@ -17,6 +17,7 @@
     "tinymce-dist": "4.3.12",
     "angular-ui-tinymce": "latest",
     "angular-touch": "1.5.x",
-    "angular-bootstrap": "latest"
+    "angular-bootstrap": "latest",
+    "underscore": "latest"
   }
 }

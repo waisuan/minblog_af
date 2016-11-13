@@ -1,8 +1,28 @@
 'use strict';
 
 angular.
-module('blogEntryList').
-component('blogEntryList', {
+module('blogEntryList')
+.filter('search', ['BlogEntry', function(BlogEntry) {
+  return _.memoize(function(blogEntries, searchText) {
+    if(searchText == '' || searchText == null || searchText.length < 2) {
+      return blogEntries;
+    }
+    console.log(blogEntries.length);
+    console.log(searchText);
+    var filteredEntries = [];
+    var searchResult = BlogEntry.search.get({'search_text': searchText});
+    searchResult.$promise.then(function (searchResult) {
+      console.log(searchResult.entries.length);
+      for (var i = 0; i < searchResult.entries.length; ++i) {
+        filteredEntries.push(searchResult.entries[i]);
+      }
+    });
+    return filteredEntries;
+  }, function (blogEntries, searchText) {
+    return blogEntries + searchText;
+  });
+}])
+.component('blogEntryList', {
   templateUrl: 'static/partials/blogEntry-list/blogEntry-list.template.html',
   controller: ['BlogEntry', '$sce', '$scope',
   function BlogEntryListController(BlogEntry, $sce, $scope) {
@@ -18,7 +38,7 @@ component('blogEntryList', {
     this.sortBySelected = 'newest';
     this.sortBy = -1;
 
-    this.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': this.last_entry_id, 'limit': this.itemsPerPage, 'sort_by': this.sortBy});
+    this.blogEntries = BlogEntry.load.get({'direction': '+', 'last_entry_id': this.last_entry_id, 'limit': this.itemsPerPage, 'sort_by': this.sortBy});
     this.blogEntries.$promise.then(function (blogEntries) {
       viewModel.queryHandler(blogEntries);
     });
@@ -32,7 +52,7 @@ component('blogEntryList', {
 
       viewModel.first_entry_id = '000000000000000000000000';
       viewModel.last_entry_id = '000000000000000000000000';
-      viewModel.blogEntries = BlogEntry.get({'direction': '+', 'last_entry_id': viewModel.last_entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
+      viewModel.blogEntries = BlogEntry.load.get({'direction': '+', 'last_entry_id': viewModel.last_entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
       viewModel.blogEntries.$promise.then(function (blogEntries) {
         viewModel.queryHandler(blogEntries);
       });
@@ -65,7 +85,7 @@ component('blogEntryList', {
       }
 
       viewModel.prevPage = viewModel.currentPage;
-      viewModel.blogEntries = BlogEntry.get({'direction': direction, 'last_entry_id': entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
+      viewModel.blogEntries = BlogEntry.load.get({'direction': direction, 'last_entry_id': entry_id, 'limit': viewModel.itemsPerPage, 'sort_by': viewModel.sortBy});
       viewModel.blogEntries.$promise.then(function (blogEntries) {
         viewModel.queryHandler(blogEntries);
       });

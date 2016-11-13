@@ -1,5 +1,6 @@
 from flask import render_template, make_response, request
 from flask_restful import Resource
+import re
 
 from minblog2 import app
 from minblog2.core import api
@@ -17,6 +18,7 @@ def route_to_main(id=None):
 class BlogEntries(Resource):
     # def get(self):
     #     return dbManager.get_all_entries(), 200
+
     def get(self, direction, last_entry_id, limit, sort_by):
         return {'count': dbManager.get_entry_count(), 'entries': dbManager.get_entries_by_page(direction, last_entry_id, limit, sort_by)}, 200
 
@@ -53,11 +55,21 @@ class BlogEntryDetail(Resource):
         dbManager.delete_entry(entry_id)
         return {'_id' : entry_id}, 204
 
+class BlogSearch(Resource):
+    def get(self, search_text):
+        filteredEntries = []
+        allEntries = dbManager.get_all_entries()
+        for entry in allEntries:
+            if re.search(search_text, entry['entry_title'], re.I):
+                filteredEntries.append(entry)
+        print len(filteredEntries)
+        return {'entries': filteredEntries}, 200
 
 api.add_resource(BlogEntries, '/api/blogentries',
                               '/api/blogentries/<direction>/<last_entry_id>/<limit>/<sort_by>')
 api.add_resource(BlogEntryDetail, '/api/blogentrydetail',
                                   '/api/blogentrydetail/<entry_id>' )
+api.add_resource(BlogSearch, '/api/blogsearch/<search_text>')
 
 # @app.errorhandler(404)
 # def page_not_found(e):
